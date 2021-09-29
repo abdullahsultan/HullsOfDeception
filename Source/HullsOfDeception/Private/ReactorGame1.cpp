@@ -86,10 +86,14 @@ void AReactorGame1::SetButtonOnOff()
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
 	if (Hit.GetComponent()->ComponentHasTag("Button"))
 	{
-		if(Hit.GetComponent()->GetRelativeLocation().Y == 13.0f)
-			Hit.GetComponent()->SetRelativeLocation(FVector(Hit.GetComponent()->GetRelativeLocation().X, 9.0f, 21.0f), true, nullptr, ETeleportType::None);
-		else
-			Hit.GetComponent()->SetRelativeLocation(FVector(Hit.GetComponent()->GetRelativeLocation().X, 13.0f, 19.0f), true, nullptr, ETeleportType::None);
+		if(Hit.GetComponent()->GetRelativeLocation().Y >= 8.0f && Hit.GetComponent()->GetRelativeLocation().Y <= 9.5f)
+		{
+			Hit.GetComponent()->SetRelativeLocation(FVector(Hit.GetComponent()->GetRelativeLocation().X, 13.0f, 19.0f), false, nullptr, ETeleportType::None);
+		}
+		else if(Hit.GetComponent()->GetRelativeLocation().Y >= 12.0f && Hit.GetComponent()->GetRelativeLocation().Y <= 13.5f)
+		{
+			Hit.GetComponent()->SetRelativeLocation(FVector(Hit.GetComponent()->GetRelativeLocation().X, 9.0f, 21.0f), false, nullptr, ETeleportType::None);
+		}
 
 		Check();
 	}
@@ -97,17 +101,16 @@ void AReactorGame1::SetButtonOnOff()
 
 void AReactorGame1::Check()
 {
-
 	for (int X = 0; X < ArrayOfSwitches.Num(); X++)
 	{
-		if (!ButtonToPush.Contains(X) && ArrayOfSwitches[X]->GetRelativeLocation().Y == 9.0f)
+		if (!ButtonToPush.Contains(X) && ArrayOfSwitches[X]->GetRelativeLocation().Y >= 8.0f && ArrayOfSwitches[X]->GetRelativeLocation().Y <= 9.5f)
 		{
 			return;
 		}
 	}
 	for (int X = 0; X < ButtonToPush.Num(); X++)
 	{
-		if(ArrayOfSwitches[ButtonToPush[X]]->GetRelativeLocation().Y == 13.0f)
+		if(ArrayOfSwitches[ButtonToPush[X]]->GetRelativeLocation().Y >= 12.0f && ArrayOfSwitches[ButtonToPush[X]]->GetRelativeLocation().Y <= 13.5f)
 			return;
 	}
 			TaskCompleted();
@@ -118,7 +121,6 @@ void AReactorGame1::SomeThingsToDo()
 	for (int x = 0; x < 4; )
 	{
 		int32 temp = FMath::RandRange(0, 10);
-		UE_LOG(LogTemp, Warning, TEXT("UP %d"), x);
 		if (!ButtonToPush.Contains(temp))
 		{
 			ButtonToPush.Add(temp);
@@ -128,7 +130,6 @@ void AReactorGame1::SomeThingsToDo()
 
 	for (int x = 0; x < ButtonToPush.Num(); x++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Down %d"), x);
 		if (ButtonToPush[x] < ArrayOfLights.Num())
 		{
 			if (ArrayOfLights[ButtonToPush[x]])
@@ -136,5 +137,10 @@ void AReactorGame1::SomeThingsToDo()
 		}
 		else
 			UE_LOG(LogTemp, Warning, TEXT("LightsArray out of bounds"));
+	}
+
+	for (int x = 0; x < ButtonToPush.Num(); x++)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("BBB : %d"), ButtonToPush[x]);
 	}
 }
