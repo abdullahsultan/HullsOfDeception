@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Item.h"
 #include "WidgetHandler.h"
 #include "Blueprint/UserWidget.h"
 #include "ReactorGameNo2Widget.generated.h"
@@ -11,18 +12,16 @@
  * 
  */
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnClickDisable, UButton*, B);
 
 UCLASS()
-class HULLSOFDECEPTION_API UReactorGameNo2Widget : public UUserWidget
+class HULLSOFDECEPTION_API UReactorGameNo2Widget : public UUserWidget, public IItem
 {
 	GENERATED_BODY()
 
 	void NativeConstruct() override;
 
-	UPROPERTY(BlueprintAssignable)
-	FOnClickDisable ButtonDisabled;
 public:
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
 		class UButton* Btn0;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (BindWidget))
@@ -72,11 +71,30 @@ public:
 	TArray<WidgetHandler> WidgetHandle;
 
 	UFUNCTION()
-		void Clicked();
-
+		void Clicked0();
 	UFUNCTION()
-	void DisableClickedButton(UButton* B);
+		void Clicked1();
+	UFUNCTION()
+		void Clicked2();
+	UFUNCTION()
+		void Clicked3();
+	UFUNCTION()
+		void Clicked4();
+	UFUNCTION()
+		void Clicked5();
+	UFUNCTION()
+		void Clicked6();
+	UFUNCTION()
+		void Clicked7();
+	UFUNCTION()
+		void Clicked8();
+	UFUNCTION()
+		void Clicked9();
 
-	int32 NoOfButtonClicked = 0;
+	int32 Counter = 0;
 
+	void Check(int32 ButtonNo);
+	void ResetButtons();
+
+	void Completed();
 };

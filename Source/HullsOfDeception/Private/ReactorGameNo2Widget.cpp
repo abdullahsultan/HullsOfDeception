@@ -8,7 +8,6 @@
 #include "Blueprint/WidgetTree.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
-#include "Kismet/GameplayStatics.h"
 
 void UReactorGameNo2Widget::NativeConstruct()
 {
@@ -65,17 +64,17 @@ void UReactorGameNo2Widget::DoSomething()
 		}
 	}
 
-	
+	Btn0->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked0);
+	Btn1->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked1);
+	Btn2->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked2);
+	Btn3->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked3);
+	Btn4->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked4);
+	Btn5->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked5);
+	Btn6->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked6);
+	Btn7->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked7);
+	Btn8->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked8);
+	Btn9->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked9);
 
-	for (int x = 0; x < 10; x++)
-	{
-		if (WidgetHandle[x].Button == Btn0)
-		{
-			ButtonDisabled.Broadcast(Btn0);
-			Btn0->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked);
-		}
-		//WidgetHandle[x].Button->OnClicked.AddDynamic(this, &UReactorGameNo2Widget::Clicked);
-	}
 }
 
 
@@ -89,23 +88,92 @@ bool UReactorGameNo2Widget::Contains(int val)
 	return false;
 }
 
-void UReactorGameNo2Widget::Clicked()
+void UReactorGameNo2Widget::Clicked0()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Clicked"));
-	if(WidgetHandle[0].Button==Btn0)
-	{
-		Btn0->SetIsEnabled(false);
-	}
-	//ButtonDisabled.AddDynamic(this, &UReactorGameNo2Widget::DisableClickedButton);
-	//FHitResult Hit;
-	//UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursor(ECollisionChannel::ECC_MAX, true, Hit);
-	//DisableClickedButton(Hit.GetComponent()->GetName());
-	//UE_LOG(LogTemp, Warning, TEXT("Component %s"), *Hit.GetComponent()->GetName());
-	//UE_LOG(LogTemp, Warning, TEXT("Component %s"), *Hit.GetActor()->GetName());
+	Btn0->SetIsEnabled(false);
+	Check(WidgetHandle[0].Value);
 }
 
-void UReactorGameNo2Widget::DisableClickedButton(UButton* B)
+void UReactorGameNo2Widget::Clicked1()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Disabled"));
-	B->SetIsEnabled(false);
+	Btn1->SetIsEnabled(false);
+	Check(WidgetHandle[1].Value);
 }
+
+void UReactorGameNo2Widget::Clicked2()
+{
+	Btn2->SetIsEnabled(false);
+	Check(WidgetHandle[2].Value);
+}
+
+void UReactorGameNo2Widget::Clicked3()
+{
+	Btn3->SetIsEnabled(false);
+	Check(WidgetHandle[3].Value);
+}
+
+void UReactorGameNo2Widget::Clicked4()
+{
+	Btn4->SetIsEnabled(false);
+	Check(WidgetHandle[4].Value);
+}
+
+void UReactorGameNo2Widget::Clicked5()
+{
+	Btn5->SetIsEnabled(false);
+	Check(WidgetHandle[5].Value);
+}
+
+void UReactorGameNo2Widget::Clicked6()
+{
+	Btn6->SetIsEnabled(false);
+	Check(WidgetHandle[6].Value);
+}
+
+void UReactorGameNo2Widget::Clicked7()
+{
+	Btn7->SetIsEnabled(false);
+	Check(WidgetHandle[7].Value);
+}
+
+void UReactorGameNo2Widget::Clicked8()
+{
+	Btn8->SetIsEnabled(false);
+	Check(WidgetHandle[8].Value);
+}
+
+void UReactorGameNo2Widget::Clicked9()
+{
+	Btn9->SetIsEnabled(false);
+	Check(WidgetHandle[9].Value);
+}
+
+void UReactorGameNo2Widget::Check(int32 ButtonNo)
+{
+	if (Counter + 1 != ButtonNo)
+		ResetButtons();
+	else if (Counter + 1 == ButtonNo && ButtonNo == 10)
+	{
+		Completed();
+	}
+	else
+		Counter = ButtonNo;
+
+}
+
+void UReactorGameNo2Widget::ResetButtons()
+{
+	for (auto ErrorHist : WidgetHandle)
+	{
+		ErrorHist.Button->SetIsEnabled(true);
+	}
+	Counter = 0;
+}
+
+void UReactorGameNo2Widget::Completed()
+{
+	IItem::Execute_Won(this);
+	RemoveFromParent();
+}
+
+
