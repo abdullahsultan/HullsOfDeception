@@ -35,4 +35,7 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 		void Won();
 
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+		void AtEnd();
+
 };

@@ -3,6 +3,7 @@
 
 #include "CardSwipe.h"
 
+#include "Components/CapsuleComponent.h"
 #include "HullsOfDeception/HullsOfDeceptionCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -85,7 +86,7 @@ void ACardSwipe::SetCard()
 {
 	UE_LOG(LogTemp, Warning, TEXT("%d"), GetWorld()->GetRealTimeSeconds());
 	FHitResult Hit;
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursor(ECollisionChannel::ECC_WorldDynamic, true, Hit);
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
 	if(Hit.Component == CardMesh)
 		CanMoveCard = true;
 

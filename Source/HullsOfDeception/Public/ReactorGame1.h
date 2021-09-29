@@ -50,6 +50,7 @@ public:
 	UBoxComponent* BoxCollision = nullptr;
 
 	void SetButtonOnOff();
+	void Check();
 
 	void SomeThingsToDo();
 

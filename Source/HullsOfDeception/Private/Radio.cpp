@@ -2,6 +2,8 @@
 
 
 #include "Radio.h"
+
+#include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "HullsOfDeception/HullsOfDeceptionCharacter.h"
 

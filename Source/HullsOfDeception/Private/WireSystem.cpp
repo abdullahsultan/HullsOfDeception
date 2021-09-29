@@ -5,6 +5,7 @@
 
 #include <string>
 
+#include "Components/CapsuleComponent.h"
 #include "HullsOfDeception/HullsOfDeceptionCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -63,7 +64,7 @@ void AWireSystem::AttachWire(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 void AWireSystem::DetectWire()
 {
 	FHitResult Hit;
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursor(ECollisionChannel::ECC_WorldDynamic, true, Hit);
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
 
 	UE_LOG(LogTemp, Warning, TEXT("Name of Comp: %s"), *Hit.Component->GetName());
 

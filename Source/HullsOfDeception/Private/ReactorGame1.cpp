@@ -2,6 +2,8 @@
 
 
 #include "ReactorGame1.h"
+
+#include "Components/CapsuleComponent.h"
 #include "HullsOfDeception/HullsOfDeceptionCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -69,22 +71,46 @@ void AReactorGame1::OP()
 
 void AReactorGame1::TaskCompleted()
 {
+	Cast <AHullsOfDeceptionCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->EnableInput(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)->GetMesh()->SetVisibility(true);
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetViewTargetWithBlend(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0), 1.0f, EViewTargetBlendFunction::VTBlend_Linear, 0.0f, false);
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetShowMouseCursor(false);
+	this->DisableInput(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	IsCompleted = true;
+	IItem::Execute_AtEnd(this);
 }
 
 void AReactorGame1::SetButtonOnOff()
 {
 	FHitResult Hit;
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursor(ECollisionChannel::ECC_WorldDynamic, true, Hit);
-
+	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
 	if (Hit.GetComponent()->ComponentHasTag("Button"))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Name %s"), *Hit.GetComponent()->GetRelativeLocation().ToString());
 		if(Hit.GetComponent()->GetRelativeLocation().Y == 13.0f)
 			Hit.GetComponent()->SetRelativeLocation(FVector(Hit.GetComponent()->GetRelativeLocation().X, 9.0f, 21.0f), true, nullptr, ETeleportType::None);
 		else
 			Hit.GetComponent()->SetRelativeLocation(FVector(Hit.GetComponent()->GetRelativeLocation().X, 13.0f, 19.0f), true, nullptr, ETeleportType::None);
-	}
 
+		Check();
+	}
+}
+
+void AReactorGame1::Check()
+{
+
+	for (int X = 0; X < ArrayOfSwitches.Num(); X++)
+	{
+		if (!ButtonToPush.Contains(X) && ArrayOfSwitches[X]->GetRelativeLocation().Y == 9.0f)
+		{
+			return;
+		}
+	}
+	for (int X = 0; X < ButtonToPush.Num(); X++)
+	{
+		if(ArrayOfSwitches[ButtonToPush[X]]->GetRelativeLocation().Y == 13.0f)
+			return;
+	}
+			TaskCompleted();
 }
 
 void AReactorGame1::SomeThingsToDo()
