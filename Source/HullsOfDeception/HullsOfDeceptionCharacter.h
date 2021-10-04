@@ -64,6 +64,12 @@ protected:
 	// End of APawn interface
 
 public:
+
+	virtual void BeginPlay() override;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool IsAI;
+
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/

@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AHullsOfDeceptionCharacter
@@ -74,6 +75,21 @@ void AHullsOfDeceptionCharacter::SetupPlayerInputComponent(class UInputComponent
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AHullsOfDeceptionCharacter::OnResetVR);
+}
+
+void AHullsOfDeceptionCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	if (this == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
+	{
+		IsAI = false;
+		UE_LOG(LogTemp, Warning, TEXT("IsAI == false"))
+	}
+	else
+	{
+		IsAI = true;
+		UE_LOG(LogTemp, Warning, TEXT("IsAI == true"))
+	}
 }
 
 

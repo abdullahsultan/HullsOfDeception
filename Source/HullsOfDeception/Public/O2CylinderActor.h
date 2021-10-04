@@ -32,6 +32,9 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 		UBoxComponent* BoxCollision = nullptr;
 
+	UPROPERTY(BlueprintReadWrite)
+		bool IsCompleted = false;
+
 	void IncrementO2();
 	void DecrementO2();
 

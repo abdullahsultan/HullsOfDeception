@@ -44,6 +44,10 @@ void ACardSwipe::Overlapped(UPrimitiveComponent* OverlappedComp, AActor* OtherAc
 {
 	Cast<AHullsOfDeceptionCharacter>(OtherActor)->IsInteracting = true;
 	Cast<AHullsOfDeceptionCharacter>(OtherActor)->InteractingObjectActor = this;
+	if(Cast<AHullsOfDeceptionCharacter>(OtherActor)->IsAI)
+	{
+		AutoCompleteForAI();
+	}
 }
 
 void ACardSwipe::Away(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
@@ -130,6 +134,13 @@ void ACardSwipe::SecondCount()
 {
 	Sec++;
 	UE_LOG(LogTemp, Warning, TEXT("Sec %f"), Sec);
+}
+
+void ACardSwipe::AutoCompleteForAI()
+{
+	CardMesh->SetRelativeLocation(FVector(CardMesh->GetRelativeLocation().X, -19.0f, CardMesh->GetRelativeLocation().Z), false, nullptr, ETeleportType::None);
+	IItem::Execute_Won(this);
+	IsCompleted = true;
 }
 
 void ACardSwipe::CheckWin()

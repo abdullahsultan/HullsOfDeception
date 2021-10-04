@@ -30,6 +30,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Lights and Switches")
 		TArray<UStaticMeshComponent*> ArrayOfSwitches;
 
+	void AutoComplete();
+
 	UFUNCTION()
 		void Overlapped(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 

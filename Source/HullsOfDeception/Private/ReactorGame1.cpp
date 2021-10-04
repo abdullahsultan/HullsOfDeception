@@ -35,12 +35,26 @@ void AReactorGame1::BeginPlay()
 }
 
 
+void AReactorGame1::AutoComplete()
+{
+	SomeThingsToDo();
+	for (auto Button : ButtonToPush)
+	{
+		ArrayOfSwitches[Button]->SetRelativeLocation(FVector(ArrayOfSwitches[Button]->GetRelativeLocation().X, 9.0f, 21.0f), false, nullptr, ETeleportType::None);
+	}
+	IsCompleted = true;
+	IItem::Execute_AtEnd(this);
+}
 
 void AReactorGame1::Overlapped(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                               int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	Cast<AHullsOfDeceptionCharacter>(OtherActor)->IsInteracting = true;
 	Cast<AHullsOfDeceptionCharacter>(OtherActor)->InteractingObjectActor = this;
+	if(Cast<AHullsOfDeceptionCharacter>(OtherActor)->IsAI)
+	{
+		AutoComplete();
+	}
 }
 
 void AReactorGame1::Away(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
@@ -137,10 +151,5 @@ void AReactorGame1::SomeThingsToDo()
 		}
 		else
 			UE_LOG(LogTemp, Warning, TEXT("LightsArray out of bounds"));
-	}
-
-	for (int x = 0; x < ButtonToPush.Num(); x++)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("BBB : %d"), ButtonToPush[x]);
 	}
 }

@@ -58,7 +58,9 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	bool IsCompleted = false;
 
-	
+	UFUNCTION(BlueprintCallable)
+		void AutoCompleteForAI();
+
 	void CheckWin();
 
 };
