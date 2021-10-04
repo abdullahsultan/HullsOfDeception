@@ -80,5 +80,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 		AActor* InteractingObjectActor;
+
+	TArray<AActor*> Tasks;
 };
 
