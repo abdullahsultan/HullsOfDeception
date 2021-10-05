@@ -24,12 +24,16 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AActor*> Tasks;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<AActor*> ReactorTasks;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<AHullsOfDeceptionCharacter*> Characters;
 
+	UFUNCTION(BlueprintCallable)
 	void DivideTasks();
 
 };

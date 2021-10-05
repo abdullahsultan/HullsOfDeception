@@ -83,12 +83,15 @@ void AHullsOfDeceptionCharacter::BeginPlay()
 	if (this == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
 	{
 		IsAI = false;
-		UE_LOG(LogTemp, Warning, TEXT("IsAI == false"))
 	}
 	else
 	{
 		IsAI = true;
-		UE_LOG(LogTemp, Warning, TEXT("IsAI == true"))
+	}
+
+	for(int X=0; X<Tasks.Num(); X++)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Name: %s  Task: %s"), *this->GetName(), *Tasks[X]->GetName());
 	}
 }
 
