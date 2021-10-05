@@ -2,6 +2,7 @@
 
 #include "HullsOfDeceptionCharacter.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
+#include "Item.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -72,9 +73,6 @@ void AHullsOfDeceptionCharacter::SetupPlayerInputComponent(class UInputComponent
 	// handle touch devices
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &AHullsOfDeceptionCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &AHullsOfDeceptionCharacter::TouchStopped);
-
-	// VR headset functionality
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AHullsOfDeceptionCharacter::OnResetVR);
 }
 
 void AHullsOfDeceptionCharacter::BeginPlay()
@@ -83,6 +81,10 @@ void AHullsOfDeceptionCharacter::BeginPlay()
 	if (this == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
 	{
 		IsAI = false;
+		for (auto Task : Tasks)
+		{
+			IItem::Execute_SpriteEnableDisable(Task);
+		}
 	}
 	else
 	{
@@ -93,18 +95,6 @@ void AHullsOfDeceptionCharacter::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Name: %s  Task: %s"), *this->GetName(), *Tasks[X]->GetName());
 	}
-}
-
-
-void AHullsOfDeceptionCharacter::OnResetVR()
-{
-	// If HullsOfDeception is added to a project via 'Add Feature' in the Unreal Editor the dependency on HeadMountedDisplay in HullsOfDeception.Build.cs is not automatically propagated
-	// and a linker error will result.
-	// You will need to either:
-	//		Add "HeadMountedDisplay" to [YourProject].Build.cs PublicDependencyModuleNames in order to build successfully (appropriate if supporting VR).
-	// or:
-	//		Comment or delete the call to ResetOrientationAndPosition below (appropriate if not supporting VR)
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
 void AHullsOfDeceptionCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)

@@ -38,4 +38,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 		void AtEnd();
 
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+		void SpriteEnableDisable();
 };
