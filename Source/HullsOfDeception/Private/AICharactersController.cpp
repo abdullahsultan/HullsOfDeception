@@ -9,7 +9,15 @@
 void AAICharactersController::BeginPlay()
 {
 	Super::BeginPlay();
-	GetBlackboardComponent()->SetValueAsBool("IsReached",false);
+	
+}
+
+void AAICharactersController::InitFirstTask()
+{
+	GetBlackboardComponent()->SetValueAsBool("IsReached", false);
+	GetBlackboardComponent()->SetValueAsBool("TasksCompleted", false);
 	GetBlackboardComponent()->SetValueAsVector("TaskLocation", Cast<AHullsOfDeceptionCharacter>(GetPawn())->Tasks[0]->GetActorLocation());
 	GetBlackboardComponent()->SetValueAsInt("TaskNo", 0);
 }
+
+

@@ -80,5 +80,10 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	TArray<AActor*> Tasks;
+
+	UFUNCTION()
+		void OverlapCapsule(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+			int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 };
 

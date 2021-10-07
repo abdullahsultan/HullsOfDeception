@@ -16,4 +16,7 @@ class HULLSOFDECEPTION_API AAICharactersController : public AAIController
 
 public:
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+		void InitFirstTask();
 };

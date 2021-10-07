@@ -95,6 +95,17 @@ void AHullsOfDeceptionCharacter::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Name: %s  Task: %s"), *this->GetName(), *Tasks[X]->GetName());
 	}
+	
+
+}
+
+void AHullsOfDeceptionCharacter::OverlapCapsule(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if(OtherActor->ActorHasTag("Item"))
+	{
+		
+	}
 }
 
 void AHullsOfDeceptionCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)

@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable, meta = (BlueprintSpawnableComponent))
 class HULLSOFDECEPTION_API UCheckInteractionService : public UBTService
 {
 	GENERATED_BODY()

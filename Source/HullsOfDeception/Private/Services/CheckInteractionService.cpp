@@ -12,5 +12,12 @@ void UCheckInteractionService::TickNode(UBehaviorTreeComponent& OwnerComp, uint8
 {
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 	AHullsOfDeceptionCharacter *Ch= Cast<AHullsOfDeceptionCharacter>(OwnerComp.GetAIOwner()->GetPawn());
+	if(Ch)
+	{
+	UE_LOG(LogTemp, Warning, TEXT("Name: %s  Status: %d"), *Ch->GetName(), Ch->IsInteracting);
+	if(OwnerComp.GetBlackboardComponent())
 	OwnerComp.GetBlackboardComponent()->SetValueAsBool("IsReached", Ch->IsInteracting);
+	}
+	else
+		UE_LOG(LogTemp, Warning, TEXT("CH is null"));
 }

@@ -57,6 +57,8 @@ void ATaskDivider::DivideTasks()
 		Cast<AHullsOfDeceptionCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->Tasks.Add(ReactorTasks[2]);
 		Cast<AHullsOfDeceptionCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->Tasks.Add(ReactorTasks[3]);
 	}
+
+
 }
 
 
