@@ -5,31 +5,25 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "Perception/AISenseConfig_Sight.h"
-#include "AICharactersController.generated.h"
+#include "ImposterAIController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class HULLSOFDECEPTION_API AAICharactersController : public AAIController
+class HULLSOFDECEPTION_API AImposterAIController : public AAIController
 {
 	GENERATED_BODY()
 
 public:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		UAIPerceptionComponent* AIPerceptionComponent;
 
 	UAISenseConfig_Sight* Sense_Sight;
 
 	UFUNCTION()
-		void OnPlayerDetectedforImposter(const TArray<AActor*>& DetectedPawn);
-
-	UFUNCTION()
-		void OnPlayerDetectedforNonImposter(const TArray<AActor*>& DetectedPawn);
-
-	UPROPERTY(BlueprintReadWrite)
-	AActor* Ch = nullptr;
-
+		void OnPlayerDetected(const TArray<AActor*>& DetectedPawn);
+	
 };

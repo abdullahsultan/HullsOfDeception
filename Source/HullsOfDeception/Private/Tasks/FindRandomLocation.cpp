@@ -17,7 +17,7 @@ EBTNodeResult::Type UFindRandomLocation::ExecuteTask(UBehaviorTreeComponent& Own
 	bool M;
 	M = NavSystem->GetRandomPointInNavigableRadius(
 		UGameplayStatics::GetPlayerPawn(GetWorld(), 0)->GetActorLocation(),
-		1500.0f,
+		5000.0f,
 		RandomPoint,
 		NULL,
 		NULL);
@@ -27,6 +27,5 @@ EBTNodeResult::Type UFindRandomLocation::ExecuteTask(UBehaviorTreeComponent& Own
 		OwnerComp.GetAIOwner()->GetBlackboardComponent()->SetValueAsVector("TaskLocation", RandomPoint.Location);
 		return EBTNodeResult::Succeeded;
 	}
-
 	return EBTNodeResult::Failed;
 }

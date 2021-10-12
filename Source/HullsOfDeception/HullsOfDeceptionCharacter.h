@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DeathInterface.h"
 #include "GameFramework/Character.h"
 #include "HullsOfDeceptionCharacter.generated.h"
 
 UCLASS(config=Game)
-class AHullsOfDeceptionCharacter : public ACharacter
+class AHullsOfDeceptionCharacter : public ACharacter, public IDeathInterface
 {
 	GENERATED_BODY()
 
@@ -80,6 +81,12 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	TArray<AActor*> Tasks;
+
+	UPROPERTY(BlueprintReadWrite)
+		TArray<AActor*> TasksSprite;
+
+	UPROPERTY(BlueprintReadWrite)
+		bool IsImposter = false;
 
 	UFUNCTION()
 		void OverlapCapsule(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,

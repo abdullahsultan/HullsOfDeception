@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TaskActorRefrences.h"
 #include "GameFramework/Actor.h"
 #include "HullsOfDeception/HullsOfDeceptionCharacter.h"
 #include "TaskDivider.generated.h"
@@ -25,6 +26,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<AActor*> TasksSprite;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<AActor*> ReactorTasksSprite;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AActor*> Tasks;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -35,5 +41,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void DivideTasks();
+
+	void Shuffle();
 
 };

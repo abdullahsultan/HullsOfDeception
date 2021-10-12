@@ -81,7 +81,7 @@ void AHullsOfDeceptionCharacter::BeginPlay()
 	if (this == UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
 	{
 		IsAI = false;
-		for (auto Task : Tasks)
+		for (auto Task : TasksSprite)
 		{
 			IItem::Execute_SpriteEnableDisable(Task);
 		}
@@ -93,7 +93,7 @@ void AHullsOfDeceptionCharacter::BeginPlay()
 
 	for(int X=0; X<Tasks.Num(); X++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Name: %s  Task: %s"), *this->GetName(), *Tasks[X]->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Name: %s  Task: %s IsImposter%d"), *this->GetName(), *Tasks[X]->GetName(), IsImposter);
 	}
 	
 

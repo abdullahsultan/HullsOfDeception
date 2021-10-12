@@ -15,5 +15,4 @@ EBTNodeResult::Type URandomPatrol::ExecuteTask(UBehaviorTreeComponent& OwnerComp
 	FVector Loc = OwnerComp.GetBlackboardComponent()->GetValueAsVector("TaskLocation");
 	OwnerComp.GetAIOwner()->MoveToLocation(Loc, 0.0f, false, true, false, false, nullptr, false);
 	return EBTNodeResult::Succeeded;
-
 }
