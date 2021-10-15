@@ -21,15 +21,17 @@ public:
 	UPROPERTY(EditAnywhere)
 		UAIPerceptionComponent* AIPerceptionComponent;
 
-	UAISenseConfig_Sight* Sense_Sight;
+	TSubclassOf<UAISense_Sight> Sense_Sight;
 
 	UFUNCTION()
-		void OnPlayerDetectedforImposter(const TArray<AActor*>& DetectedPawn);
+		void OnPlayerDetectedforImposter();
 
 	UFUNCTION()
 		void OnPlayerDetectedforNonImposter(const TArray<AActor*>& DetectedPawn);
 
 	UPROPERTY(BlueprintReadWrite)
 	AActor* Ch = nullptr;
+
+	void Tick(float DeltaTime) override;
 
 };

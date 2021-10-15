@@ -33,30 +33,32 @@ void AAICharactersController::BeginPlay()
 	/*AIPerceptionComponent->bAutoActivate = true;
 
 	AIPerceptionComponent->ConfigureSense(*Sense_Sight);*/
-	AIPerceptionComponent = FindComponentByClass<UAIPerceptionComponent>();
+	/*AIPerceptionComponent = FindComponentByClass<UAIPerceptionComponent>();
 	if(Cast<AHullsOfDeceptionCharacter>(GetPawn())->IsImposter)
-	AIPerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &AAICharactersController::OnPlayerDetectedforImposter);
-
-	else
-		AIPerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &AAICharactersController::OnPlayerDetectedforNonImposter);
-
+	AIPerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &AAICharactersController::OnPlayerDetectedforImposter);*/
+	AIPerceptionComponent = FindComponentByClass<UAIPerceptionComponent>();
 }
 
-void AAICharactersController::OnPlayerDetectedforImposter(const TArray<AActor*>& DetectedPawn)
+void AAICharactersController::OnPlayerDetectedforImposter()
 {
-
-	for(int x= 0 ; x< DetectedPawn.Num(); x++)
-		UE_LOG(LogTemp, Warning, TEXT("Name: %s Detected"), *DetectedPawn[x]->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("NNUM %d "), DetectedPawn.Num());
+	TArray<AActor*> DetectedPawn;
+	AIPerceptionComponent->GetPerceivedActors(Sense_Sight, DetectedPawn);
+	
+	UE_LOG(LogTemp, Warning, TEXT("NNUM %d" ), DetectedPawn.Num());
 	if (DetectedPawn.Num() == 1)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Inside If No of Pwns: %d "), DetectedPawn.Num());
+		//UE_LOG(LogTemp, Warning, TEXT("NNUM %d : Name %s"), DetectedPawn.Num(), *DetectedPawn[0]->GetName());
 		if(!Cast<AHullsOfDeceptionCharacter>(DetectedPawn[0])->IsImposter)
 		{
-			Ch = DetectedPawn[0];
-			GetBlackboardComponent()->SetValueAsBool("ShouldKill", true);
-			GetBlackboardComponent()->SetValueAsVector("CharacterLocation",DetectedPawn[0]->GetActorLocation());
-			GetBlackboardComponent()->SetValueAsObject("Character", DetectedPawn[0]);
+				GetBlackboardComponent()->SetValueAsBool("ShouldKill", true);
+				Ch = DetectedPawn[0];
+				GetBlackboardComponent()->SetValueAsVector("CharacterLocation",DetectedPawn[0]->GetActorLocation());
+				GetBlackboardComponent()->SetValueAsObject("Character", DetectedPawn[0]);
+		}
+		else
+		{
+			GetBlackboardComponent()->SetValueAsBool("ShouldKill", false);
+			GetBlackboardComponent()->SetValueAsObject("Character", nullptr);
 		}
 	}
 	else
@@ -70,4 +72,17 @@ void AAICharactersController::OnPlayerDetectedforNonImposter(const TArray<AActor
 {
 }
 
+void AAICharactersController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (Cast<AHullsOfDeceptionCharacter>(GetPawn())->IsImposter)
+	{
+		OnPlayerDetectedforImposter();
+	}
+	else
+	{
+
+	}
+	
+}
 

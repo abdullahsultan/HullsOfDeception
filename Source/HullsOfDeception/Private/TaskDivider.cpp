@@ -81,7 +81,7 @@ void ATaskDivider::DivideTasks()
 	Rand = FMath::RandRange(0, 2);
 	Characters[Rand]->IsImposter = true;
 
-	Rand = FMath::RandRange(3, 5);
+	/*Rand = FMath::RandRange(3, 5);
 	if (Rand != 5)
 	{
 		Characters[Rand]->IsImposter = true;
@@ -89,7 +89,7 @@ void ATaskDivider::DivideTasks()
 	else
 	{
 		Cast<AHullsOfDeceptionCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->IsImposter = true;;
-	}
+	}*/
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
