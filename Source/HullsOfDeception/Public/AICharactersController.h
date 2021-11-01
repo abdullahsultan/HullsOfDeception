@@ -23,11 +23,9 @@ public:
 
 	TSubclassOf<UAISense_Sight> Sense_Sight;
 
-	UFUNCTION()
 		void OnPlayerDetectedforImposter();
 
-	UFUNCTION()
-		void OnPlayerDetectedforNonImposter(const TArray<AActor*>& DetectedPawn);
+		void OnPlayerDetectedforNonImposter();
 
 	UPROPERTY(BlueprintReadWrite)
 	AActor* Ch = nullptr;

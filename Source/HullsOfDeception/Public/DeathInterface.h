@@ -28,4 +28,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 		void Kill();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+		void FoundDead();
 };

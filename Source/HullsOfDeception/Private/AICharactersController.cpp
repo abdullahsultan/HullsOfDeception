@@ -6,6 +6,10 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "HullsOfDeception/HullsOfDeceptionCharacter.h"
 #include "Perception/AIPerceptionComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "DeathInterface.h"
+
+
 
 void AAICharactersController::BeginPlay()
 {
@@ -68,8 +72,19 @@ void AAICharactersController::OnPlayerDetectedforImposter()
 	}
 }
 
-void AAICharactersController::OnPlayerDetectedforNonImposter(const TArray<AActor*>& DetectedPawn)
+void AAICharactersController::OnPlayerDetectedforNonImposter()
 {
+	TArray<AActor*> DetectedPawn;
+	AIPerceptionComponent->GetPerceivedActors(Sense_Sight, DetectedPawn);
+	for (int X=0; X<DetectedPawn.Num(); X++)
+	{
+		if (Cast<AHullsOfDeceptionCharacter>(DetectedPawn[X])->IsDead)
+		{
+			IDeathInterface::Execute_FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+				//FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+			break;
+		}
+	}
 }
 
 void AAICharactersController::Tick(float DeltaTime)
@@ -81,7 +96,7 @@ void AAICharactersController::Tick(float DeltaTime)
 	}
 	else
 	{
-
+		OnPlayerDetectedforNonImposter();
 	}
 	
 }
