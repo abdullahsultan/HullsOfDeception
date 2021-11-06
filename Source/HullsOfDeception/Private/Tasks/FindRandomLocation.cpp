@@ -15,8 +15,9 @@ EBTNodeResult::Type UFindRandomLocation::ExecuteTask(UBehaviorTreeComponent& Own
 	FNavLocation RandomPoint;
 	UNavigationSystemV1* NavSystem = UNavigationSystemV1::GetNavigationSystem(GetWorld());
 	bool M;
+
 	M = NavSystem->GetRandomPointInNavigableRadius(
-		UGameplayStatics::GetPlayerPawn(GetWorld(), 0)->GetActorLocation(),
+		OwnerComp.GetAIOwner()->GetPawn()->GetActorLocation(),
 		5000.0f,
 		RandomPoint,
 		NULL,

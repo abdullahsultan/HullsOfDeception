@@ -196,11 +196,15 @@ void AWireSystem::OP()
 
 void AWireSystem::TaskCompleted()
 {
-	Cast <AHullsOfDeceptionCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->EnableInput(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)->GetMesh()->SetVisibility(true);
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetViewTargetWithBlend(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0), 1.0f, EViewTargetBlendFunction::VTBlend_Linear, 0.0f, false);
-	UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetShowMouseCursor(false);
-	this->DisableInput(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
+	{
+		Cast <AHullsOfDeceptionCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->EnableInput(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+		UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)->GetMesh()->SetVisibility(true);
+		UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetViewTargetWithBlend(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0), 1.0f, EViewTargetBlendFunction::VTBlend_Linear, 0.0f, false);
+		UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetShowMouseCursor(false);
+		this->DisableInput(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	}
+
 	IsCompleted = true;
 }
 

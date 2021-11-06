@@ -24,22 +24,6 @@ void AAICharactersController::BeginPlay()
 		GetBlackboardComponent()->SetValueAsInt("TaskNo", 0);
 	}
 
-	//Sense_Sight = CreateDefaultSubobject<UAISenseConfig_Sight>(FName("Sense_Sight"));
-
-	/*Sense_Sight->SightRadius = 3000;
-	Sense_Sight->LoseSightRadius = 3500;
-	Sense_Sight->PeripheralVisionAngleDegrees = 180;
-	Sense_Sight->DetectionByAffiliation.bDetectEnemies = true;
-	Sense_Sight->DetectionByAffiliation.bDetectFriendlies = true;
-	Sense_Sight->DetectionByAffiliation.bDetectNeutrals = true;
-	Sense_Sight->AutoSuccessRangeFromLastSeenLocation = 1500;*/
-
-	/*AIPerceptionComponent->bAutoActivate = true;
-
-	AIPerceptionComponent->ConfigureSense(*Sense_Sight);*/
-	/*AIPerceptionComponent = FindComponentByClass<UAIPerceptionComponent>();
-	if(Cast<AHullsOfDeceptionCharacter>(GetPawn())->IsImposter)
-	AIPerceptionComponent->OnPerceptionUpdated.AddDynamic(this, &AAICharactersController::OnPlayerDetectedforImposter);*/
 	AIPerceptionComponent = FindComponentByClass<UAIPerceptionComponent>();
 }
 
@@ -76,12 +60,16 @@ void AAICharactersController::OnPlayerDetectedforNonImposter()
 {
 	TArray<AActor*> DetectedPawn;
 	AIPerceptionComponent->GetPerceivedActors(Sense_Sight, DetectedPawn);
+	for (auto PP : DetectedPawn)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Name %s"), *PP->GetName());
+	}
 	for (int X=0; X<DetectedPawn.Num(); X++)
 	{
 		if (Cast<AHullsOfDeceptionCharacter>(DetectedPawn[X])->IsDead)
 		{
 			
-			IDeathInterface::Execute_FoundDead(Cast<AHullsOfDeceptionCharacter>(GetPawn())->VoteSystem);
+			IDeathInterface::Execute_FoundDead(Cast<AHullsOfDeceptionCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)));
 				//FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 			break;
 		}
