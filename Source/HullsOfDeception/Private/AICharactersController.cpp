@@ -80,7 +80,8 @@ void AAICharactersController::OnPlayerDetectedforNonImposter()
 	{
 		if (Cast<AHullsOfDeceptionCharacter>(DetectedPawn[X])->IsDead)
 		{
-			IDeathInterface::Execute_FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+			
+			IDeathInterface::Execute_FoundDead(Cast<AHullsOfDeceptionCharacter>(GetPawn())->VoteSystem);
 				//FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 			break;
 		}

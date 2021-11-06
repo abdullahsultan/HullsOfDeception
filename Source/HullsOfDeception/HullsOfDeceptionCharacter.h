@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "DeathInterface.h"
 #include "GameFramework/Character.h"
+#include "Public/VotingSystemActor.h"
 #include "HullsOfDeceptionCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -92,7 +93,12 @@ public:
 		void OverlapCapsule(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 			int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+
+	UPROPERTY(BlueprintReadWrite)
 	bool IsDead = false;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		AVotingSystemActor* VoteSystem;
 
 };
 
