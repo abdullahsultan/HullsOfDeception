@@ -68,6 +68,9 @@ public:
 
 	UInputComponent* Input = nullptr;
 
+	UFUNCTION(BlueprintCallable)
+		void Sabotage();
+
 	void DetectWire();
 	void ClickReleased();
 

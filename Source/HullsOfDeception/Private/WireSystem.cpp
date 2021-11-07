@@ -259,3 +259,9 @@ void AWireSystem::InitializeSomeThing()
 		UE_LOG(LogTemp, Error, TEXT("RedAttachmentNULL"));
 
 }
+
+void AWireSystem::Sabotage()
+{
+	ClickReleased();
+	IsCompleted = false;
+}
