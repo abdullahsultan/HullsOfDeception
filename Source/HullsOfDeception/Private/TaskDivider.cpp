@@ -16,6 +16,7 @@ ATaskDivider::ATaskDivider()
 void ATaskDivider::BeginPlay()
 {
 	Super::BeginPlay();
+	DivideTasks();
 }
 
 // Called every frame

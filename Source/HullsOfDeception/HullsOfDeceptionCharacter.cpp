@@ -95,8 +95,6 @@ void AHullsOfDeceptionCharacter::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Name: %s  Task: %s IsImposter%d"), *this->GetName(), *Tasks[X]->GetName(), IsImposter);
 	}
-	
-
 }
 
 void AHullsOfDeceptionCharacter::OverlapCapsule(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
+#include "DeathInterface.h"
 #include "UpdateTask_Task.generated.h"
 
 /**

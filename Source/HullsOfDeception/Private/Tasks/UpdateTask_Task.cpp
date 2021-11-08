@@ -16,7 +16,12 @@ EBTNodeResult::Type UUpdateTask_Task::ExecuteTask(UBehaviorTreeComponent& OwnerC
 		OwnerComp.GetBlackboardComponent()->SetValueAsVector("TaskLocation", Ch->Tasks[OwnerComp.GetBlackboardComponent()->GetValueAsInt("TaskNo")]->GetActorLocation());
 	}
 	else
+	{
 		OwnerComp.GetAIOwner()->GetBlackboardComponent()->SetValueAsBool("TasksCompleted", true);
+
+		if(Cast<AHullsOfDeceptionCharacter>(OwnerComp.GetAIOwner()->GetPawn())->IsImposter)
+			IDeathInterface::Execute_EnableSabotage(OwnerComp.GetAIOwner()->GetPawn());
+	}
 	Ch->IsInteracting = false;
 	OwnerComp.GetBlackboardComponent()->SetValueAsBool("IsReached", false);
 	return EBTNodeResult::Succeeded;

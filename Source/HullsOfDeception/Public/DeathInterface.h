@@ -31,4 +31,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 		void FoundDead();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+		void EnableSabotage();
 };
