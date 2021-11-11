@@ -34,4 +34,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 		void EnableSabotage();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+		void RepairSabotage(FVector SabotageLocation);
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+		void AISabotage();
 };

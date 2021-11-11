@@ -20,7 +20,7 @@ EBTNodeResult::Type UUpdateTask_Task::ExecuteTask(UBehaviorTreeComponent& OwnerC
 		OwnerComp.GetAIOwner()->GetBlackboardComponent()->SetValueAsBool("TasksCompleted", true);
 
 		if(Cast<AHullsOfDeceptionCharacter>(OwnerComp.GetAIOwner()->GetPawn())->IsImposter)
-			IDeathInterface::Execute_EnableSabotage(OwnerComp.GetAIOwner()->GetPawn());
+			IDeathInterface::Execute_EnableSabotage(OwnerComp.GetAIOwner());
 	}
 	Ch->IsInteracting = false;
 	OwnerComp.GetBlackboardComponent()->SetValueAsBool("IsReached", false);

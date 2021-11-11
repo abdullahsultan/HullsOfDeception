@@ -32,7 +32,6 @@ void AAICharactersController::OnPlayerDetectedforImposter()
 	TArray<AActor*> DetectedPawn;
 	AIPerceptionComponent->GetPerceivedActors(Sense_Sight, DetectedPawn);
 	
-	UE_LOG(LogTemp, Warning, TEXT("NNUM %d" ), DetectedPawn.Num());
 	if (DetectedPawn.Num() == 1)
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("NNUM %d : Name %s"), DetectedPawn.Num(), *DetectedPawn[0]->GetName());
@@ -60,16 +59,13 @@ void AAICharactersController::OnPlayerDetectedforNonImposter()
 {
 	TArray<AActor*> DetectedPawn;
 	AIPerceptionComponent->GetPerceivedActors(Sense_Sight, DetectedPawn);
-	for (auto PP : DetectedPawn)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Name %s"), *PP->GetName());
-	}
+	
 	for (int X=0; X<DetectedPawn.Num(); X++)
 	{
 		if (Cast<AHullsOfDeceptionCharacter>(DetectedPawn[X])->IsDead)
 		{
 			
-			IDeathInterface::Execute_FoundDead(Cast<AHullsOfDeceptionCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)));
+			IDeathInterface::Execute_FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 				//FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 			break;
 		}

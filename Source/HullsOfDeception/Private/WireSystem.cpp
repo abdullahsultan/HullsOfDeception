@@ -209,6 +209,7 @@ void AWireSystem::TaskCompleted()
 }
 
 
+
 void AWireSystem::InitializeSomeThing()
 {
 
@@ -262,6 +263,10 @@ void AWireSystem::InitializeSomeThing()
 
 void AWireSystem::Sabotage()
 {
+	BrownWire->SetMobility(EComponentMobility::Movable);
+	GreenWire->SetMobility(EComponentMobility::Movable);
+	RedWire->SetMobility(EComponentMobility::Movable);
+	BlueWire->SetMobility(EComponentMobility::Movable);
 	ClickReleased();
 	IsCompleted = false;
 }
