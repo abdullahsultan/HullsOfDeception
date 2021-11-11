@@ -64,9 +64,8 @@ void AAICharactersController::OnPlayerDetectedforNonImposter()
 	{
 		if (Cast<AHullsOfDeceptionCharacter>(DetectedPawn[X])->IsDead)
 		{
-			
-			IDeathInterface::Execute_FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-				//FoundDead(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+			GetBlackboardComponent()->SetValueAsBool("FoundDead", true);
+			//IDeathInterface::Execute_FoundDead(GetPawn());
 			break;
 		}
 	}
@@ -79,10 +78,10 @@ void AAICharactersController::Tick(float DeltaTime)
 	{
 		OnPlayerDetectedforImposter();
 	}
-	else
-	{
-		OnPlayerDetectedforNonImposter();
-	}
+	//else
+	//{
+	//	OnPlayerDetectedforNonImposter();
+	//}
 	
 }
 
